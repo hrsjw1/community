@@ -1,12 +1,11 @@
 package com.example.mapper;
 
-import com.example.entity.Question;
+import model.Question;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface QuestionMapper {
-
-    @Select("select * from question")
-    Question questionFind();
+    @Insert("insert into question (title,description,gmtCreate,gmtModified,creator,tag) values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
+    void create(Question question);
 }

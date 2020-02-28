@@ -23,7 +23,7 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()){
             String str = response.body().string() ;
-            System.out.println(str);
+            System.out.println("getAccessToken : " + str);
             String token = str.split("&")[0].split("=")[1];
             return token;
 
