@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.dto.AccessTokenDTO;
 import com.example.dto.GithubUser;
 import com.example.mapper.UserMapper;
 import com.example.provider.GithubProvider;
@@ -36,6 +35,7 @@ public class AuthorizeController {
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
                            HttpServletRequest request) {
+        /**
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -45,10 +45,11 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         System.out.println(githubUser.toString());
-        /**
+
          * access_token=4b63033d10e34bee903245fe2bb2322443177f29&scope=user&token_type=bearer
          * GithubUser{name='null', id=15377001, bio='null'}
          */
+        GithubUser githubUser = new GithubUser("hrsjw1",15377001L,"hadoop");
         if (githubUser != null){
             //登录成功，写cookie和session
             request.getSession().setAttribute("user",githubUser);
@@ -68,7 +69,7 @@ public class AuthorizeController {
             userMapper.insert(user);
 
             // redirect 重定向
-            return "redirect:index";
+            return "redirect:publish";
         }else {
             // 登录失败
             return "redirect:index";
